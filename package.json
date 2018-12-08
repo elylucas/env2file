@@ -1,0 +1,41 @@
+{
+  "name": "env2file",
+  "version": "0.0.2",
+  "description": "A small utility that will output an environments file based on environment variables loaded via dotenv",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "bin": {
+    "env2file": "bin/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elylucas/env2file"
+  },
+  "keywords": [
+    "dotenv",
+    "environments",
+    "angular",
+    "ionic"
+  ],
+  "author": "Ely Lucas",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^10.12.12",
+    "@types/prettier": "^1.15.2",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.1"
+  },
+  "dependencies": {
+    "case": "^1.6.0",
+    "commander": "^2.19.0",
+    "dotenv": "^6.1.0",
+    "mkdirp": "^0.5.1",
+    "prettier": "^1.15.3"
+  }
+}
