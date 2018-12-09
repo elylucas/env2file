@@ -14,7 +14,7 @@ MYAPP_LIMITS=39.44
 MYAPP_OBJECT={"abc":123, "stuff": [{"name": "ely"}]}
 ```
 
-And when you run `npx env2file -k MYAPP` have it output a `environments.ts` file such as:
+And when you run `npx env2file -k MYAPP` have it output a `environment.ts` file such as:
 
 ```js
 export const environment = {
@@ -38,9 +38,9 @@ npm install env2file
 
 ## Usage
 
-env2file is a cli tool meant to be run before your build happens. It will read a `.env` file (located in the root of you project), replace any variables with those found in the current environment, and output a `./src/environments.ts` file. This file can then be imported into your project and used during runtime.
+env2file is a cli tool meant to be run before your build happens. It will read a `.env` file (located in the root of you project), replace any variables with those found in the current environment, and output a `./src/environment.ts` file. This file can then be imported into your project and used during runtime.
 
-Only variables defined in the `.env` file will be output into the `environments.ts` file.
+Only variables defined in the `.env` file will be output into the `environment.ts` file.
 
 A common way to run env2file will be a pre build script, or as a hook in your front end framework's cli. For instance, if you have a npm build script, you can add a env2file script in your package.json file:
 
@@ -53,9 +53,10 @@ A common way to run env2file will be a pre build script, or as a hook in your fr
 
 or, for example, an Ionic pre build hook:
 
-```js
+```json
 "scripts": {
-  "ionic:serve:before": "env2file"
+  "ionic:serve:before": "env2file",
+  "ionic:build:before": "env2file"
 }
 ```
 
@@ -79,7 +80,7 @@ npx env2file -k MY
 will output a file like
 ```js
 export const environment = {
-  api: 'http://localhost.com:3000
+  api: 'http://localhost.com:3000'
 }
 ```
 
