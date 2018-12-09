@@ -1,6 +1,6 @@
 import * as casing from 'case';
 import * as dotenv from 'dotenv';
-import { existsSync, mkdirSync, writeFile } from 'fs';
+import { existsSync, writeFile } from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import * as prettier from 'prettier';
@@ -39,11 +39,11 @@ ${envKeys
     .join('')}}
 `;
 
-  await verifyDirectory(environmentDir);
+  await createDirIfNeeded(environmentDir);
 
   const formattedCode = await formatCode(environmentTemplate);
 
-  await writeEnvFile(file, formattedCode);
+  await writeEnvFileToDisk(file, formattedCode);
 };
 
 const getValue = (val: any) => {
@@ -65,7 +65,7 @@ const getValue = (val: any) => {
   return `'${val}'`;
 };
 
-const verifyDirectory = dir => {
+const createDirIfNeeded = (dir: string) => {
   return new Promise((resolve, reject) => {
     if (existsSync(dir)) {
       resolve();
@@ -88,7 +88,7 @@ const formatCode = (code: string) => {
   });
 };
 
-const writeEnvFile = (path: string, code: string) => {
+const writeEnvFileToDisk = (path: string, code: string) => {
   return new Promise((resolve, reject) => {
     writeFile(path, code, err => {
       if (err) {

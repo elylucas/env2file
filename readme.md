@@ -14,7 +14,7 @@ MYAPP_LIMITS=39.44
 MYAPP_OBJECT={"abc":123, "stuff": [{"name": "ely"}]}
 ```
 
-And when you run `npx env2file -k MYAPP` have it output a `environment.ts` file such as:
+And when you run `env2file -k MYAPP` it will output a `environment.ts` file such as:
 
 ```js
 export const environment = {
@@ -25,7 +25,7 @@ export const environment = {
   object: { abc: 123, stuff: [{ name: 'ely' }] }
 };
 ```
-env2file will automatically attempt to convert your values to proper JS types (booleans, numbers, objects, and strings)
+env2file will automatically attempt to convert your values to proper JS types (booleans, numbers, objects, and strings).
 
 If you provide OS Environment Variables to your build, DotEnv will automatically replace the values in the `.env` file. This allows you to setup a local `.env` file for development, and have your build system override the values for specific environments (Testing/Staging/Prod).
 
@@ -75,7 +75,7 @@ MYAPP_API=http://localhost.com:3000
 ```
 running
 ```bash
-npx env2file -k MY
+env2file -k MY
 ```
 will output a file like
 ```js
@@ -88,7 +88,7 @@ export const environment = {
 
 Specifies the output file (defaults to ./src/environment.ts).
 
-Though env2file outputs a TypeScript file, there is no TS in it, so it can easy be renamed to a JS file using this option.
+> Though env2file outputs a TypeScript file by default, there is no TS in it, so it can easy be renamed to a JS file using this option.
 
 ### -o or --objectName
 
@@ -97,3 +97,10 @@ Specifies the name of the environments object that is exported from the file (de
 ### -s or --skip-casing
 
 Skips turning the names of the variables into camelCase.
+
+## Building
+```bash
+npm run build
+```
+
+Tests to come soon.
