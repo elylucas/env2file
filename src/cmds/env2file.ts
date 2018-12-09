@@ -13,7 +13,7 @@ interface MakeEnvFileOptions {
 }
 
 export const env2file = async ({
-  file = 'src/environments.ts',
+  file = 'src/environment.ts',
   keyPrefix = '',
   objectName = 'environment',
   skipCasing = false

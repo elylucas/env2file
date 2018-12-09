@@ -18,7 +18,7 @@ export const main = () => {
     )
     .option(
       '-s, --skip-casing',
-      'skips env2file from pascal casing your environment variables'
+      'skips env2file from cameCasing your environment variables'
     )
     .parse(process.argv);
 
