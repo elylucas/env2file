@@ -1,6 +1,6 @@
 {
   "name": "env2file",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A small utility that will output an environments file based on environment variables loaded via dotenv",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
