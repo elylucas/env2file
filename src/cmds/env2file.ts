@@ -6,32 +6,40 @@ import * as mkdirp from 'mkdirp';
 import * as prettier from 'prettier';
 
 interface MakeEnvFileOptions {
+  envFile?: string;
   file?: string;
+  keyList?: string[];
   keyPrefix?: string;
   objectName?: string;
   skipCasing?: boolean;
+  skipRename?: boolean;
 }
 
 export const env2file = async ({
+  envFile = '.env',
   file = 'src/environment.ts',
+  keyList = [],
   keyPrefix = '',
   objectName = 'environment',
-  skipCasing = false
+  skipCasing = false,
+  skipRename = false
 }: MakeEnvFileOptions) => {
-  const parsedEnvs = dotenv.config();
+  const parsedEnvs = dotenv.config({
+    path: path.resolve(process.cwd(), envFile)
+  });
   const environmentDir = path.dirname(file);
 
-  if (!parsedEnvs.parsed) {
-    console.error('Nothing to parse. Did you make a .env file?');
-    process.exit(1);
-  }
+  // if (!parsedEnvs.parsed) {
+  //   console.error('Nothing to parse. Did you make a .env file?');
+  //   process.exit(1);
+  // }
 
-  const envKeys = Object.keys(parsedEnvs.parsed!);
+  const envKeys = getKeys(keyPrefix, keyList);
 
   const environmentTemplate = `export const ${objectName} = {
 ${envKeys
     .map(key => {
-      const keyToUse = keyPrefix ? key.replace(keyPrefix, '') : key;
+      const keyToUse = skipRename ? key : key.replace(keyPrefix, '');
       return `'${skipCasing ? keyToUse : casing.camel(keyToUse)}': ${getValue(
         process.env[key]
       )},\n`;
@@ -44,6 +52,19 @@ ${envKeys
   const formattedCode = await formatCode(environmentTemplate);
 
   await writeEnvFileToDisk(file, formattedCode);
+};
+
+const getKeys = (keyPrefix: string, keyList: string[]) => {
+  const objectKeys = Object.keys(process.env);
+  if (keyList.length > 0) {
+    return objectKeys.filter(key => {
+      return keyList.includes(key);
+    });
+  }
+  if (keyPrefix) {
+    return objectKeys.filter(s => s.startsWith(keyPrefix));
+  }
+  return [];
 };
 
 const getValue = (val: any) => {
